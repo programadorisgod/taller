@@ -1,4 +1,5 @@
 import { BaseOperations } from "../interfaces/base-operations";
+import { Document } from "../Entities/document"
 
 export class DocumentService implements BaseOperations<Document> {
     constructor(private readonly repository: BaseOperations<Document>) {}
