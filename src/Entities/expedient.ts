@@ -91,8 +91,8 @@ export class Expedient {
     return this.documents;
   }
 
-  public setDocuments(documents: Document[]): void {
-    this.documents = documents;
+  public setDocument(document: Document): void {
+    this.documents.push(document);
   }
 
   public getNotebooks(): Notebook[] {
