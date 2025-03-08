@@ -1,3 +1,4 @@
+import { Notebook } from "../Entities/Notebook";
 import { DocumentFormat } from "../Enums/document-format";
 import { DocumentOrigin } from "../Enums/document-origin";
 

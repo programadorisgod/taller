@@ -1,6 +1,7 @@
 import { DocumentFormat } from "../Enums/document-format";
 import { DocumentOrigin } from "../Enums/document-origin";
 import { DocumentProps } from "../interfaces/document-props";
+import { Notebook } from "./Notebook";
 
 
 export class Document {
