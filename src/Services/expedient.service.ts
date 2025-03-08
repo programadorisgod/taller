@@ -1,13 +1,19 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
+import { ProceduralType } from "../Enums/procedural-type";
 import { ExpedientOperations } from "../interfaces/expedient-operations";
 
 export class ExpedientService {
-  constructor(private readonly repository: ExpedientOperations) {}
+  constructor(
+    private readonly expedientRepository: ExpedientOperations,
+    private readonly indexRepository: IndexRepository
+  ) {}
 
   public findExpedientById(expedientId: string): Expedient | undefined {
-    //Buscar en la lista de expedientes del indice digital.
-    return undefined;
+    const expedient = this.indexRepository
+      .getExpedients()
+      .find((expedient: Expedient) => expedient.getId() === expedientId);
+    return expedient;
   }
 
   public addDocumentToExpedient(expedientId: string, document: Document): void {
@@ -17,7 +23,7 @@ export class ExpedientService {
       throw new Error("expedient not found");
     }
 
-    this.repository.addDocumentToExpedient(expedient, document);
+    this.expedientRepository.addDocumentToExpedient(expedient, document);
   }
 
   public removeDocumentFromExpedient(
@@ -28,20 +34,20 @@ export class ExpedientService {
     if (!expedient) {
       throw new Error("expedient not found");
     }
-    this.repository.removeDocumentFromExpedient(expedientId, documentId);
+    this.expedientRepository.removeDocumentFromExpedient(expedient, documentId);
   }
 
   public addProceduralPartToExpedient(
     expedientId: string,
     proceduralPart: ProceduralPart,
-    proceduralType: String
+    proceduralType: ProceduralType
   ): void {
     const expedient = this.findExpedientById(expedientId);
     if (!expedient) {
       throw new Error("expedient not found");
     }
-    this.repository.addProceduralPartToExpedient(
-      expedientId,
+    this.expedientRepository.addProceduralPartToExpedient(
+      expedient,
       proceduralPart,
       proceduralType
     );
@@ -49,16 +55,37 @@ export class ExpedientService {
 
   public removeProceduralPartFromExpedient(
     expedientId: string,
-    proceduralPartId: string
-  ): void {}
+    proceduralType: ProceduralType
+  ): void {
+    const expedient = this.findExpedientById(expedientId);
+    if (!expedient) {
+      throw new Error("expedient not found");
+    }
+    this.expedientRepository.removeProceduralPartFromExpedient(
+      expedient,
+      proceduralType
+    );
+  }
 
   public getDocumentsFromExpedient(expedientId: string): Document[] {
-    //Aquí igual, buscar en la lista de indice digital y devolver el expedients.getDocumets()
+    const expedient = this.findExpedientById(expedientId);
+    if (!expedient) {
+      throw new Error("expedient not found");
+    }
+    return this.expedientRepository.getDocumentsFromExpedient(expedient);
   }
 
   public getProceduralPartsFromExpedient(
-    expedientId: string
-  ): ProceduralPart[] {
-    //Aquí igual,
+    expedientId: string,
+    proceduralType: ProceduralType
+  ): ProceduralPart {
+    const expedient = this.findExpedientById(expedientId);
+    if (!expedient) {
+      throw new Error("expedient not found");
+    }
+    return this.expedientRepository.getProceduralPartsFromExpedient(
+      expedient,
+      proceduralType
+    );
   }
 }

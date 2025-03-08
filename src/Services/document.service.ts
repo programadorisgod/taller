@@ -1,8 +1,12 @@
 import { BaseOperations } from "../interfaces/base-operations";
 import { Document } from "../Entities/document";
+import { ExpedientOperations } from "../interfaces/expedient-operations";
 
 export class DocumentService implements BaseOperations<Document> {
-  constructor(private readonly repository: BaseOperations<Document>) {}
+  constructor(
+    private readonly documentRepository: BaseOperations<Document>,
+    private readonly expedientRepository: ExpedientOperations
+  ) {}
 
   update(id: string, entityProps: Partial<Document>): void {
     const document: Document | undefined = this.findById(id);
@@ -16,23 +20,23 @@ export class DocumentService implements BaseOperations<Document> {
       ...entityProps,
     } as Document;
 
-    this.repository.update(id, updatedDocument);
+    this.documentRepository.update(id, updatedDocument);
   }
 
   public findById(id: string): Document | undefined {
-    return this.repository.findById(id);
+    return this.documentRepository.findById(id);
   }
   public save(entity: Document): void {
     if (!this.validateDates(entity)) {
       throw new Error("invalid dates");
     }
-    this.repository.save(entity);
+    this.documentRepository.save(entity);
   }
   public delete(id: string): void {
     if (!this.findById(id)) {
       throw new Error("document not found");
     }
-    this.repository.delete(id);
+    this.documentRepository.delete(id);
   }
 
   public validateDates(entity): boolean {

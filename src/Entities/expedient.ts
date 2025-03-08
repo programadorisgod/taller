@@ -1,5 +1,6 @@
 import { ExpedientProps } from "../interfaces/expedient-props";
 import { Document } from "./document";
+import { DocumentCategory } from "./documentCategory";
 import { Notebook } from "./Notebook";
 
 export class Expedient {
@@ -93,6 +94,10 @@ export class Expedient {
 
   public setDocument(document: Document): void {
     this.documents.push(document);
+  }
+
+  public setDocuments(documents: Document[]): void {
+    this.documents = documents;
   }
 
   public getNotebooks(): Notebook[] {
