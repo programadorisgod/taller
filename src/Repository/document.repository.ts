@@ -1,28 +1,33 @@
-import { BaseOperations } from "../interfaces/base-operations";
 import { Document } from "../Entities/document";
+import { DocumentOperations } from "../interfaces/document-operations";
+import { Expedient } from "../Entities/expedient";
 
-export class DocumentRepository implements BaseOperations<Document> {
-  private documents: Document[] = [];
-
-  update(id: string, entity: Document): void {
-    const documentIndex: number | undefined = this.documents.findIndex(
-      (doc: Document) => doc.getId() === id
-    );
+export class DocumentRepository implements DocumentOperations {
+  update(documentId: string, expedient: Expedient, document: Document): void {
+    const documentIndex: number | undefined = expedient
+      .getDocuments()
+      .findIndex((doc: Document) => doc.getId() === documentId);
 
     if (documentIndex) {
-      this.documents[documentIndex] = entity;
+      expedient.uptdateDocument(documentIndex, document);
     }
   }
 
-  findById(id: string): Document | undefined {
-    return this.documents.find((doc) => doc.getId() === id);
+  findById(documentId: string, expedient: Expedient): Document | undefined {
+    return expedient
+      .getDocuments()
+      .find((doc: Document) => doc.getId() === documentId);
   }
 
-  save(entity: Document): void {
-    this.documents.push(entity);
+  save(expedient: Expedient, document: Document): void {
+    expedient.setDocument(document);
   }
 
-  delete(id: string): void {
-    this.documents = this.documents.filter((doc) => doc.getId() !== id);
+  delete(documentId: string, expedient: Expedient): void {
+    expedient.setDocuments(
+      expedient
+        .getDocuments()
+        .filter((doc: Document) => doc.getId() !== documentId)
+    );
   }
 }

@@ -116,6 +116,10 @@ export class Expedient {
     this.hasPhysicalFile = hasPhysicalFile;
   }
 
+  public uptdateDocument(index: number, document: Document): void {
+    this.documents[index] = document;
+  }
+
   private validateProperties(props: ExpedientProps): boolean {
     if (
       !props.id ||
