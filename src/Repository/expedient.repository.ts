@@ -1,40 +1,64 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
+import { ProceduralType } from "../Enums/procedural-type";
 import { ExpedientOperations } from "../interfaces/expedient-operations";
 
 export class ExpedientRepository implements ExpedientOperations {
   findDocumentById(
-    entity: Expedient,
+    expedient: Expedient,
     documentId: string
   ): Document | undefined {
-    return entity
+    return expedient
       .getDocuments()
       .find((document: Document) => document.getId() === documentId);
   }
 
-  addDocumentToExpedient(entity: Expedient, document: Document): void {
-    entity.setDocument(document);
+  addDocumentToExpedient(expedient: Expedient, document: Document): void {
+    expedient.setDocument(document);
   }
-  removeDocumentFromExpedient(expedientId: String, documentId: String): void {
-    throw new Error("Method not implemented.");
+
+  removeDocumentFromExpedient(expedient: Expedient, documentId: String): void {
+    expedient.setDocuments(
+      expedient
+        .getDocuments()
+        .filter((document: Document) => document.getId() !== documentId)
+    );
   }
+
   addProceduralPartToExpedient(
-    expedientId: String,
+    expedient: Expedient,
     proceduralPart: ProceduralPart,
-    proceduralType: String
+    proceduralType: ProceduralType
   ): void {
-    throw new Error("Method not implemented.");
+    if (proceduralType === ProceduralType.A) {
+      expedient.setDefendant(proceduralPart);
+      return;
+    }
+    expedient.setPlaintiff(proceduralPart);
   }
+
   removeProceduralPartFromExpedient(
-    expedientId: String,
-    proceduralPartId: String
+    expedient: Expedient,
+    proceduralType: ProceduralType
   ): void {
-    throw new Error("Method not implemented.");
+    if (proceduralType === ProceduralType.A) {
+      expedient.setDefendant(undefined);
+      return;
+    }
+    expedient.setPlaintiff(undefined);
   }
-  getDocumentsFromExpedient(expedientId: String): Document[] {
-    throw new Error("Method not implemented.");
+
+  getDocumentsFromExpedient(expedient: Expedient): Document[] {
+    return expedient.getDocuments();
   }
-  getProceduralPartsFromExpedient(expedientId: String): ProceduralPart[] {
-    throw new Error("Method not implemented.");
+
+  getProceduralPartsFromExpedient(
+    entity: Expedient,
+    proceduralType: ProceduralType
+  ): ProceduralPart {
+    if (proceduralType === ProceduralType.A) {
+      return entity.getDefendant();
+    }
+    return entity.getPlaintiff;
   }
 }

@@ -1,14 +1,30 @@
-import { BaseOperations } from "../interfaces/base-operations";
 import { Document } from "../Entities/document";
+import { Expedient } from "../Entities/expedient";
+import { DocumentOperations } from "../interfaces/document-operations";
 
-export class DocumentService implements BaseOperations<Document> {
-  constructor(private readonly repository: BaseOperations<Document>) {}
+export class DocumentService {
+  constructor(
+    private readonly documentRepository: DocumentOperations,
+    private readonly indexRepository: IndexRepository
+  ) {}
 
-  update(id: string, entityProps: Partial<Document>): void {
-    const document: Document | undefined = this.findById(id);
+  update(
+    documentId: string,
+    expedientId: string,
+    entityProps: Partial<Document>
+  ): void {
+    const document: Document | undefined = this.findById(
+      documentId,
+      expedientId
+    );
+    const expedient = this.indexRepository.searchExpedient(expedientId);
 
     if (!document) {
       throw new Error("Document not found");
+    }
+
+    if (!expedient) {
+      throw new Error("Expedient not found");
     }
 
     const updatedDocument: Document = {
@@ -16,23 +32,45 @@ export class DocumentService implements BaseOperations<Document> {
       ...entityProps,
     } as Document;
 
-    this.repository.update(id, updatedDocument);
+    this.documentRepository.update(documentId, expedient, updatedDocument);
   }
 
-  public findById(id: string): Document | undefined {
-    return this.repository.findById(id);
+  public findById(
+    documentId: string,
+    expedientId: string
+  ): Document | undefined {
+    const expedient = this.indexRepository
+      .getExpedients()
+      .find((expedient: Expedient) => expedient.getId() === expedientId);
+
+    if (!expedient) {
+      throw new Error("expedient not found");
+    }
+    return this.documentRepository.findById(documentId, expedient);
   }
-  public save(entity: Document): void {
-    if (!this.validateDates(entity)) {
+
+  public save(expedientId: string, document: Document): void {
+    const expedient = this.indexRepository.searchExpedient(expedientId);
+    if (!expedient) {
+      throw new Error("expedient not found");
+    }
+
+    if (!this.validateDates(document)) {
       throw new Error("invalid dates");
     }
-    this.repository.save(entity);
+    this.documentRepository.save(expedient, document);
   }
-  public delete(id: string): void {
-    if (!this.findById(id)) {
+
+  public delete(documentId: string, expedientId: string): void {
+    const expedient = this.indexRepository.searchExpedient(expedientId);
+    if (!expedient) {
+      throw new Error("expedient not found");
+    }
+
+    if (!this.findById(documentId, expedientId)) {
       throw new Error("document not found");
     }
-    this.repository.delete(id);
+    this.documentRepository.delete(documentId, expedient);
   }
 
   public validateDates(entity): boolean {

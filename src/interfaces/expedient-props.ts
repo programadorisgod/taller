@@ -1,4 +1,6 @@
 import { Document } from "../Entities/document";
+import { DocumentCategory } from "../Entities/documentCategory";
+import { Notebook } from "../Entities/Notebook";
 
 export interface ExpedientProps {
   id: string;

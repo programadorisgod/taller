@@ -1,5 +1,6 @@
 import { ExpedientProps } from "../interfaces/expedient-props";
 import { Document } from "./document";
+import { DocumentCategory } from "./documentCategory";
 import { Notebook } from "./Notebook";
 
 export class Expedient {
@@ -95,6 +96,10 @@ export class Expedient {
     this.documents.push(document);
   }
 
+  public setDocuments(documents: Document[]): void {
+    this.documents = documents;
+  }
+
   public getNotebooks(): Notebook[] {
     return this.notebooks;
   }
@@ -109,6 +114,10 @@ export class Expedient {
 
   public setHasPhysicalFile(hasPhysicalFile: boolean): void {
     this.hasPhysicalFile = hasPhysicalFile;
+  }
+
+  public uptdateDocument(index: number, document: Document): void {
+    this.documents[index] = document;
   }
 
   private validateProperties(props: ExpedientProps): boolean {

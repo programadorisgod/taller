@@ -1,19 +1,23 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
+import { ProceduralType } from "../Enums/procedural-type";
 
 export interface ExpedientOperations {
   findDocumentById(entity: Expedient, documentId: string): Document | undefined;
   addDocumentToExpedient(entity: Expedient, document: Document): void;
-  removeDocumentFromExpedient(expedientId: String, documentId: String): void;
+  removeDocumentFromExpedient(entity: Expedient, documentId: String): void;
   addProceduralPartToExpedient(
-    expedientId: String,
+    entity: Expedient,
     proceduralPart: ProceduralPart,
-    proceduralType: String
+    proceduralType: ProceduralType
   ): void;
   removeProceduralPartFromExpedient(
-    expedientId: String,
-    proceduralPartId: String
+    entity: Expedient,
+    proceduralType: ProceduralType
   ): void;
-  getDocumentsFromExpedient(expedientId: String): Document[];
-  getProceduralPartsFromExpedient(expedientId: String): ProceduralPart[];
+  getDocumentsFromExpedient(entity: Expedient): Document[];
+  getProceduralPartsFromExpedient(
+    entity: Expedient,
+    proceduralType: ProceduralType
+  ): ProceduralPart;
 }
