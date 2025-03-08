@@ -3,159 +3,206 @@ import { DocumentOrigin } from "../Enums/document-origin";
 import { DocumentProps } from "../interfaces/document-props";
 import { Notebook } from "./Notebook";
 
-
 export class Document {
+  private id: string;
+  private name: string;
+  private creationDate: Date;
+  private incorporationDate: Date;
+  private order: number;
+  private numberOfPages: number;
+  private startPage: number;
+  private endPage: number;
+  private format: DocumentFormat;
+  private size: number;
+  private origin: DocumentOrigin;
+  private notebook: Notebook;
+  private notes: string;
 
-    private id: string;
-    private name: string;
-    private creationDate: Date;
-    private incorporationDate: Date;
-    private order: number;
-    private numberOfPages: number;
-    private startPage: number;
-    private endPage: number;
-    private format: DocumentFormat;
-    private size: number;
-    private origin: DocumentOrigin;
-    private notebook: Notebook;
-    private notes: string;
+  constructor(
+    id: string,
+    name: string,
+    creationDate: Date,
+    incorporationDate: Date,
+    order: number,
+    numberOfPages: number,
+    startPage: number,
+    endPage: number,
+    format: DocumentFormat,
+    size: number,
+    origin: DocumentOrigin,
+    notebook: Notebook,
+    notes: string
+  ) {
+    const props: DocumentProps = {
+      id,
+      name,
+      creationDate,
+      incorporationDate,
+      order,
+      numberOfPages,
+      startPage,
+      endPage,
+      format,
+      size,
+      origin,
+      notebook,
+      notes,
+    };
 
-    constructor(props: DocumentProps) {
-
-        if (!this.validateProperties(props)) {
-            throw new Error("Invalid properties");
-        }
-
-        this.id = props.id;
-        this.name = props.name;
-        this.creationDate = props.creationDate;
-        this.incorporationDate = props.incorporationDate;
-        this.order = props.order;
-        this.numberOfPages = props.numberOfPages;
-        this.startPage = props.startPage;
-        this.endPage = props.endPage;
-        this.format = props.format;
-        this.size = props.size;
-        this.origin = props.origin;
-        this.notebook = props.notebook;
-        this.notes = props.notes;
-
-       
+    if (!this.validateProperties(props)) {
+      throw new Error("Invalid properties");
     }
 
-    public getId(): string {
-        return this.id;
-    }
+    this.id = id;
+    this.name = name;
+    this.creationDate = creationDate;
+    this.incorporationDate = incorporationDate;
+    this.order = order;
+    this.numberOfPages = numberOfPages;
+    this.startPage = startPage;
+    this.endPage = endPage;
+    this.format = format;
+    this.size = size;
+    this.origin = origin;
+    this.notebook = notebook;
+    this.notes = notes;
+  }
 
-    public setId(id: string): void {
-        this.id = id;
-    }
+  public getId(): string {
+    return this.id;
+  }
 
-    public getName(): string {
-        return this.name;
-    }
+  public setId(id: string): void {
+    this.id = id;
+  }
 
-    public setName(name: string): void {
-        this.name = name;
-    }
+  public getName(): string {
+    return this.name;
+  }
 
-    public getCreationDate(): Date {
-        return this.creationDate;
-    }
+  public setName(name: string): void {
+    this.name = name;
+  }
 
-    public setCreationDate(creationDate: Date): void {
-        this.creationDate = creationDate;
-    }
+  public getCreationDate(): Date {
+    return this.creationDate;
+  }
 
-    public getIncorporationDate(): Date {
-        return this.incorporationDate;
-    }
+  public setCreationDate(creationDate: Date): void {
+    this.creationDate = creationDate;
+  }
 
-    public setIncorporationDate(incorporationDate: Date): void {
-        this.incorporationDate = incorporationDate;
-    }
+  public getIncorporationDate(): Date {
+    return this.incorporationDate;
+  }
 
-    public getOrder(): number {
-        return this.order;
-    }
+  public setIncorporationDate(incorporationDate: Date): void {
+    this.incorporationDate = incorporationDate;
+  }
 
-    public setOrder(order: number): void {
-        this.order = order;
-    }
+  public getOrder(): number {
+    return this.order;
+  }
 
-    public getNumberOfPages(): number {
-        return this.numberOfPages;
-    }
+  public setOrder(order: number): void {
+    this.order = order;
+  }
 
-    public setNumberOfPages(numberOfPages: number): void {
-        this.numberOfPages = numberOfPages;
-    }
+  public getNumberOfPages(): number {
+    return this.numberOfPages;
+  }
 
-    public getStartPage(): number {
-        return this.startPage;
-    }
+  public setNumberOfPages(numberOfPages: number): void {
+    this.numberOfPages = numberOfPages;
+  }
 
-    public setStartPage(startPage: number): void {
-        this.startPage = startPage;
-    }
+  public getStartPage(): number {
+    return this.startPage;
+  }
 
-    public getEndPage(): number {
-        return this.endPage;
-    }
+  public setStartPage(startPage: number): void {
+    this.startPage = startPage;
+  }
 
-    public setEndPage(endPage: number): void {
-        this.endPage = endPage;
-    }
+  public getEndPage(): number {
+    return this.endPage;
+  }
 
-    public getFormat(): DocumentFormat {
-        return this.format;
-    }
+  public setEndPage(endPage: number): void {
+    this.endPage = endPage;
+  }
 
-    public setFormat(format: DocumentFormat): void {
-        this.format = format;
-    }
+  public getFormat(): DocumentFormat {
+    return this.format;
+  }
 
-    public getSize(): number {
-        return this.size;
-    }
+  public setFormat(format: DocumentFormat): void {
+    this.format = format;
+  }
 
-    public setSize(size: number): void {
-        this.size = size;
-    }
+  public getSize(): number {
+    return this.size;
+  }
 
-    public getOrigin(): DocumentOrigin {
-        return this.origin;
-    }
+  public setSize(size: number): void {
+    this.size = size;
+  }
 
-    public setOrigin(origin: DocumentOrigin): void {
-        this.origin = origin;
-    }
+  public getOrigin(): DocumentOrigin {
+    return this.origin;
+  }
 
-    public getNotebook(): Notebook {
-        return this.notebook;
-    }
+  public setOrigin(origin: DocumentOrigin): void {
+    this.origin = origin;
+  }
 
-    public setNotebook(notebook: Notebook): void {
-        this.notebook = notebook;
-    }
+  public getNotebook(): Notebook {
+    return this.notebook;
+  }
 
-    public getNotes(): string {
-        return this.notes;
-    }
+  public setNotebook(notebook: Notebook): void {
+    this.notebook = notebook;
+  }
 
-    public setNotes(notes: string): void {
-        this.notes = notes;
-    }
+  public getNotes(): string {
+    return this.notes;
+  }
 
-    private validateProperties(props: DocumentProps): boolean {
-        if (!props.id || !props.name || !props.creationDate || !props.incorporationDate || !props.format || !props.origin || !props.notebook) {
-            return false;
-        }
+  public setNotes(notes: string): void {
+    this.notes = notes;
+  }
 
-        if (props.order < 0 || props.numberOfPages < 0 || props.startPage < 0 || props.endPage < 0 || props.size < 0) {
-            return false;
-        }
+  private validateProperties(props: DocumentProps): boolean {
+    const requiredFields: (keyof DocumentProps)[] = [
+      "id",
+      "name",
+      "creationDate",
+      "incorporationDate",
+      "format",
+      "origin",
+      "notebook",
+    ];
 
-        return true;
-    }
+    const hasInvalidRequiredFields = requiredFields.some(
+      (field: string) => !props[field]
+    );
+
+    if (hasInvalidRequiredFields) return false;
+
+    const numericFields: (keyof DocumentProps)[] = [
+      "order",
+      "numberOfPages",
+      "startPage",
+      "endPage",
+      "size",
+    ];
+
+    const hasNegativeValues = numericFields.some(
+      (field: string) => (props[field] as number) < 0
+    );
+
+    if (hasNegativeValues) return false;
+
+    return true;
+  }
 }
