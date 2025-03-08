@@ -1,40 +1,40 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
-import { BaseOperations } from "../interfaces/base-operations";
+import { ExpedientOperations } from "../interfaces/expedient-operations";
 
-export class ExpedientRepository implements BaseOperations<Expedient> {
-  private expedients: Expedient[] = [];
-
-  findById(id: string): Expedient | undefined {
-    return this.expedients.find((exp) => exp.getId() === id);
+export class ExpedientRepository implements ExpedientOperations {
+  findDocumentById(
+    entity: Expedient,
+    documentId: string
+  ): Document | undefined {
+    return entity
+      .getDocuments()
+      .find((document: Document) => document.getId() === documentId);
   }
 
-  save(entity: Expedient): void {
-    this.expedients.push(entity);
+  addDocumentToExpedient(entity: Expedient, document: Document): void {
+    entity.setDocument(document);
   }
-
-  delete(id: string): void {
-    this.expedients = this.expedients.filter((exp) => exp.getId() !== id);
+  removeDocumentFromExpedient(expedientId: String, documentId: String): void {
+    throw new Error("Method not implemented.");
   }
-
-  public addDocument(expedient: Expedient, document: Document): void {
-    expedient.documents.push(document);
-  }
-
-  public removeDocument(expedientId: String, documentId: String): void {}
-
-  public addProceduralPart(
+  addProceduralPartToExpedient(
     expedientId: String,
     proceduralPart: ProceduralPart,
     proceduralType: String
-  ): void {}
-
-  public removeProceduralPart(
+  ): void {
+    throw new Error("Method not implemented.");
+  }
+  removeProceduralPartFromExpedient(
     expedientId: String,
     proceduralPartId: String
-  ): void {}
-
-  public getDocuments(expedientId: String): Document[] {}
-
-  public getProceduralParts(expedientId: String): ProceduralPart[] {}
+  ): void {
+    throw new Error("Method not implemented.");
+  }
+  getDocumentsFromExpedient(expedientId: String): Document[] {
+    throw new Error("Method not implemented.");
+  }
+  getProceduralPartsFromExpedient(expedientId: String): ProceduralPart[] {
+    throw new Error("Method not implemented.");
+  }
 }
