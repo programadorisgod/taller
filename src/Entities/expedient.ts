@@ -1,5 +1,6 @@
 import { ExpedientProps } from "../interfaces/expedient-props";
 import { Document } from "./document";
+import { Notebook } from "./Notebook";
 
 export class Expedient {
   private id: string;
@@ -123,9 +124,5 @@ export class Expedient {
       return false;
     }
     return true;
-  }
-
-  public addDocument(document: Document): void {
-    this.documents.push(document);
   }
 }
