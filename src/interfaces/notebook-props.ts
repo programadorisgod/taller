@@ -1,5 +1,3 @@
-
-export interface NotebookProps{
-  id: string;
+export interface NotebookProps {
   description: string;
 }
