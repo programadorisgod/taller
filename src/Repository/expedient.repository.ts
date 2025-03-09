@@ -1,5 +1,6 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
+import { ProceduralParty } from "../Entities/ProceduralParty";
 import { ProceduralType } from "../Enums/procedural-type";
 import { ExpedientOperations } from "../interfaces/expedient-operations";
 
@@ -27,7 +28,7 @@ export class ExpedientRepository implements ExpedientOperations {
 
   addProceduralPartToExpedient(
     expedient: Expedient,
-    proceduralPart: ProceduralPart,
+    proceduralPart: ProceduralParty,
     proceduralType: ProceduralType
   ): void {
     if (proceduralType === ProceduralType.A) {
@@ -37,17 +38,6 @@ export class ExpedientRepository implements ExpedientOperations {
     expedient.setPlaintiff(proceduralPart);
   }
 
-  removeProceduralPartFromExpedient(
-    expedient: Expedient,
-    proceduralType: ProceduralType
-  ): void {
-    if (proceduralType === ProceduralType.A) {
-      expedient.setDefendant(undefined);
-      return;
-    }
-    expedient.setPlaintiff(undefined);
-  }
-
   getDocumentsFromExpedient(expedient: Expedient): Document[] {
     return expedient.getDocuments();
   }
@@ -55,10 +45,10 @@ export class ExpedientRepository implements ExpedientOperations {
   getProceduralPartsFromExpedient(
     entity: Expedient,
     proceduralType: ProceduralType
-  ): ProceduralPart {
+  ): ProceduralParty {
     if (proceduralType === ProceduralType.A) {
       return entity.getDefendant();
     }
-    return entity.getPlaintiff;
+    return entity.getPlaintiff();
   }
 }

@@ -1,11 +1,12 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
 import { DocumentOperations } from "../interfaces/document-operations";
+import { DigitalIndexRepository } from "../Repository/digitalIndex.repository";
 
 export class DocumentService {
   constructor(
     private readonly documentRepository: DocumentOperations,
-    private readonly indexRepository: IndexRepository
+    private readonly indexRepository: DigitalIndexRepository
   ) {}
 
   update(
@@ -39,9 +40,8 @@ export class DocumentService {
     documentId: string,
     expedientId: string
   ): Document | undefined {
-    const expedient = this.indexRepository
-      .getExpedients()
-      .find((expedient: Expedient) => expedient.getId() === expedientId);
+    const digitalIndex = this.indexRepository.findById(expedientId);
+    const expedient = digitalIndex?.getExpedients().find((expedient) => expedient.getId() === expedientId);
 
     if (!expedient) {
       throw new Error("expedient not found");
