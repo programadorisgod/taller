@@ -1,5 +1,5 @@
 import { BaseOperations } from "../interfaces/base-operations";
-import { Notebook } from "../Entities/Notebook";
+import { Notebook } from "../Entities/notebook";
 
 export class NotebookRepository implements BaseOperations<Notebook> {
   private notebooks: Notebook[] = [];

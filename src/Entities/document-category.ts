@@ -22,4 +22,10 @@ export abstract class DocumentCategory {
   public setName(name: string): void {
     this.name = name;
   }
+  public toString(): string {
+    return `DocumentCategory {
+      code: ${this.code},
+      name: ${this.name}
+    }`;
+  }
 }

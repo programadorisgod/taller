@@ -1,8 +1,8 @@
 import { ExpedientProps } from "../interfaces/expedient-props";
 import { Document } from "./document";
-import { DocumentCategory } from "./documentCategory";
-import { Notebook } from "./Notebook";
-import { ProceduralParty } from "./ProceduralParty"
+import { DocumentCategory } from "./document-category";
+import { Notebook } from "./notebook";
+import { ProceduralParty } from "./procedural-party";
 export class Expedient {
   private id: string;
   private department: string;
@@ -118,6 +118,20 @@ export class Expedient {
 
   public uptdateDocument(index: number, document: Document): void {
     this.documents[index] = document;
+  }
+  public toString(): string {
+    return `Expedient {
+      id: ${this.id},
+      department: ${this.department},
+      city: ${this.city},
+      judicialOffice: ${this.judicialOffice},
+      documentCategory: ${this.documentCategory.toString()},
+      defendant: ${this.defendant.toString()},
+      plaintiff: ${this.plaintiff.toString()},
+      documents: [${this.documents.map((doc) => doc.toString()).join(", ")}],
+      notebooks: [${this.notebooks.map((nb) => nb.toString()).join(", ")}],
+      hasPhysicalFile: ${this.hasPhysicalFile}
+    }`;
   }
 
   private validateProperties(props: ExpedientProps): boolean {

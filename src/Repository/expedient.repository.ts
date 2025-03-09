@@ -1,6 +1,6 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
-import { ProceduralParty } from "../Entities/ProceduralParty";
+import { ProceduralParty } from "../Entities/procedural-party";
 import { ProceduralType } from "../Enums/procedural-type";
 import { ExpedientOperations } from "../interfaces/expedient-operations";
 

@@ -1,4 +1,4 @@
-import { DocumentCategory } from "./documentCategory";
+import { DocumentCategory } from "./document-category";
 
 export class SubSerieDocument extends DocumentCategory {
   private documentTypes: string[];

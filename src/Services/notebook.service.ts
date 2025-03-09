@@ -1,5 +1,5 @@
 import { BaseOperations } from "../interfaces/base-operations";
-import { Notebook } from "../Entities/Notebook";
+import { Notebook } from "../Entities/notebook";
 
 export class NotebookService implements BaseOperations<Notebook> {
   constructor(private readonly repository: BaseOperations<Notebook>) {}

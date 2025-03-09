@@ -1,7 +1,7 @@
 import { Document } from "../Entities/document";
-import { DocumentCategory } from "../Entities/documentCategory";
-import { Notebook } from "../Entities/Notebook";
-import { ProceduralParty } from "../Entities/ProceduralParty";
+import { DocumentCategory } from "../Entities/document-category";
+import { Notebook } from "../Entities/notebook";
+import { ProceduralParty } from "../Entities/procedural-party";
 
 export interface ExpedientProps {
   id: string;
