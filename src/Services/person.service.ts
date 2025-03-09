@@ -1,4 +1,4 @@
-import { Person } from "../Entities/Person";
+import { Person } from "../Entities/person";
 import { BaseOperations } from "../interfaces/base-operations";
 
 export class PersonRepository implements BaseOperations<Person>{

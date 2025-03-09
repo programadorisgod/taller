@@ -1,9 +1,9 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
-import { ProceduralParty } from "../Entities/ProceduralParty";
+import { ProceduralParty } from "../Entities/procedural-party";
 import { ProceduralType } from "../Enums/procedural-type";
 import { ExpedientOperations } from "../interfaces/expedient-operations";
-import { DigitalIndexRepository } from "../Repository/digitalIndex.repository";
+import { DigitalIndexRepository } from "../Repository/digital-index.repository";
 
 export class ExpedientService {
   constructor(

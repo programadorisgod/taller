@@ -1,7 +1,7 @@
 import { DocumentFormat } from "../Enums/document-format";
 import { DocumentOrigin } from "../Enums/document-origin";
 import { DocumentProps } from "../interfaces/document-props";
-import { Notebook } from "./Notebook";
+import { Notebook } from "./notebook";
 
 export class Document {
   private id: string;
@@ -172,6 +172,24 @@ export class Document {
     this.notes = notes;
   }
 
+  public toString(): string {
+    return `Document {
+      id: ${this.id},
+      name: ${this.name},
+      creationDate: ${this.creationDate.toISOString()},
+      incorporationDate: ${this.incorporationDate.toISOString()},
+      order: ${this.order},
+      numberOfPages: ${this.numberOfPages},
+      startPage: ${this.startPage},
+      endPage: ${this.endPage},
+      format: ${this.format},
+      size: ${this.size},
+      origin: ${this.origin},
+      notebook: ${this.notebook.toString()},
+      notes: ${this.notes}
+    }`;
+  }
+
   private validateProperties(props: DocumentProps): boolean {
     const requiredFields: (keyof DocumentProps)[] = [
       "id",
@@ -203,6 +221,25 @@ export class Document {
 
     if (hasNegativeValues) return false;
 
+    this.validDates({
+      creationDate: props.creationDate,
+      incorporationDate: props.incorporationDate,
+    });
+
     return true;
+  }
+
+  private validDates({
+    incorporationDate,
+    creationDate,
+  }: {
+    incorporationDate: Date;
+    creationDate: Date;
+  }): void {
+    if (
+      !(incorporationDate && creationDate instanceof Date) ||
+      (isNaN(creationDate.getTime()) && isNaN(incorporationDate.getTime()))
+    ) {
+    }
   }
 }
