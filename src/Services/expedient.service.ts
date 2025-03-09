@@ -1,19 +1,19 @@
 import { Document } from "../Entities/document";
 import { Expedient } from "../Entities/expedient";
+import { ProceduralParty } from "../Entities/ProceduralParty";
 import { ProceduralType } from "../Enums/procedural-type";
 import { ExpedientOperations } from "../interfaces/expedient-operations";
+import { DigitalIndexRepository } from "../Repository/digitalIndex.repository";
 
 export class ExpedientService {
   constructor(
     private readonly expedientRepository: ExpedientOperations,
-    private readonly indexRepository: IndexRepository
+    private readonly indexRepository: DigitalIndexRepository
   ) {}
 
   public findExpedientById(expedientId: string): Expedient | undefined {
-    const expedient = this.indexRepository
-      .getExpedients()
-      .find((expedient: Expedient) => expedient.getId() === expedientId);
-    return expedient;
+    const digitalIndex = this.indexRepository.findById(expedientId);
+    return digitalIndex?.getExpedients().find((expedient) => expedient.getId() === expedientId);
   }
 
   public addDocumentToExpedient(expedientId: string, document: Document): void {
@@ -39,7 +39,7 @@ export class ExpedientService {
 
   public addProceduralPartToExpedient(
     expedientId: string,
-    proceduralPart: ProceduralPart,
+    proceduralPart: ProceduralParty,
     proceduralType: ProceduralType
   ): void {
     const expedient = this.findExpedientById(expedientId);
@@ -49,20 +49,6 @@ export class ExpedientService {
     this.expedientRepository.addProceduralPartToExpedient(
       expedient,
       proceduralPart,
-      proceduralType
-    );
-  }
-
-  public removeProceduralPartFromExpedient(
-    expedientId: string,
-    proceduralType: ProceduralType
-  ): void {
-    const expedient = this.findExpedientById(expedientId);
-    if (!expedient) {
-      throw new Error("expedient not found");
-    }
-    this.expedientRepository.removeProceduralPartFromExpedient(
-      expedient,
       proceduralType
     );
   }
@@ -78,7 +64,7 @@ export class ExpedientService {
   public getProceduralPartsFromExpedient(
     expedientId: string,
     proceduralType: ProceduralType
-  ): ProceduralPart {
+  ): ProceduralParty {
     const expedient = this.findExpedientById(expedientId);
     if (!expedient) {
       throw new Error("expedient not found");

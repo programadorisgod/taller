@@ -31,7 +31,7 @@ export class NotebookService implements BaseOperations<Notebook> {
 
   delete(id: string): void {
     if (!this.findById(id)) {
-      throw new Error("document not found");
+      throw new Error("Notebook not found");
     }
     this.repository.delete(id);
   }

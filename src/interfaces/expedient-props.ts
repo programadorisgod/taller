@@ -1,6 +1,7 @@
 import { Document } from "../Entities/document";
 import { DocumentCategory } from "../Entities/documentCategory";
 import { Notebook } from "../Entities/Notebook";
+import { ProceduralParty } from "../Entities/ProceduralParty";
 
 export interface ExpedientProps {
   id: string;
@@ -8,8 +9,8 @@ export interface ExpedientProps {
   city: string;
   judicialOffice: string;
   documentCategory: DocumentCategory;
-  defendant: ProceduralPart;
-  plaintiff: ProceduralPart;
+  defendant: ProceduralParty;
+  plaintiff: ProceduralParty;
   documents: Document[];
   notebooks: Notebook[];
   hasPhysicalFile: boolean;

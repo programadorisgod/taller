@@ -2,15 +2,15 @@ import { ExpedientProps } from "../interfaces/expedient-props";
 import { Document } from "./document";
 import { DocumentCategory } from "./documentCategory";
 import { Notebook } from "./Notebook";
-
+import { ProceduralParty } from "./ProceduralParty"
 export class Expedient {
   private id: string;
   private department: string;
   private city: string;
   private judicialOffice: string;
   private documentCategory: DocumentCategory;
-  private defendant: ProceduralPart;
-  private plaintiff: ProceduralPart;
+  private defendant: ProceduralParty;
+  private plaintiff: ProceduralParty;
   private documents: Document[];
   private notebooks: Notebook[];
   private hasPhysicalFile: boolean;
@@ -72,19 +72,19 @@ export class Expedient {
     this.documentCategory = documentCategory;
   }
 
-  public getDefendant(): ProceduralPart {
+  public getDefendant(): ProceduralParty {
     return this.defendant;
   }
 
-  public setDefendant(defendant: ProceduralPart): void {
+  public setDefendant(defendant: ProceduralParty): void {
     this.defendant = defendant;
   }
 
-  public getPlaintiff(): ProceduralPart {
+  public getPlaintiff(): ProceduralParty {
     return this.plaintiff;
   }
 
-  public setPlaintiff(plaintiff: ProceduralPart): void {
+  public setPlaintiff(plaintiff: ProceduralParty): void {
     this.plaintiff = plaintiff;
   }
 
